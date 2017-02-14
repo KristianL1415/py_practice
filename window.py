@@ -8,9 +8,24 @@ Create a window in PyQt5
 """
 
 import sys, os
-from PyQt5.QtWidgets import (QApplication, QWidget, QDesktopWidget, QToolTip, QPushButton, QMessageBox)
+from PyQt5.QtWidgets import (QApplication, QWidget, QMainWindow, QDesktopWidget, QToolTip, QPushButton, QMessageBox)
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QIcon, QFont
+
+
+class MainWindow(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+    def initUI(self):
+        self.statusBar().showMessage('Ready')
+
+        self.setGeometry(300, 300, 250, 150)
+        self.setWindowTitle('Statusbar')
+        self.show()
 
 
 class CustomWindow(QWidget):
@@ -57,5 +72,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     path = os.path.join(os.path.dirname(sys.modules[__name__].__file__), 'web.png')
     app.setWindowIcon(QIcon(path))
-    cw = CustomWindow()
+    # cw = CustomWindow()
+    mw = MainWindow()
     sys.exit(app.exec_())
+
