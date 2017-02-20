@@ -8,6 +8,7 @@ Create a window in PyQt5
 """
 
 import sys, os
+from nltk.corpus import brown
 from PyQt5.QtWidgets import (QApplication, QWidget, QMainWindow, QDesktopWidget, QToolTip, QPushButton, QMessageBox)
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QIcon, QFont
@@ -23,9 +24,22 @@ class MainWindow(QMainWindow):
     def initUI(self):
         self.statusBar().showMessage('Ready')
 
-        self.setGeometry(300, 300, 250, 150)
+        title = brown.words()[0]
+        btn = QPushButton(title, self)
+        btn.clicked.connect(QCoreApplication.instance().quit)
+        btn.setToolTip('This is a <b>QPushButton</b> widget')
+        btn.resize(btn.sizeHint())
+
+        self.setGeometry(0, 0, 950, 550)
         self.setWindowTitle('Statusbar')
+        self.center()
         self.show()
+
+    def center(self):
+        frame = self.frameGeometry()
+        desktopCenter = QDesktopWidget().availableGeometry().center()
+        frame.moveCenter(desktopCenter)
+        self.move(frame.topLeft())
 
 
 class CustomWindow(QWidget):
@@ -46,7 +60,7 @@ class CustomWindow(QWidget):
         btn.setToolTip('This is a <b>QPushButton</b> widget')
         btn.resize(btn.sizeHint())
 
-        self.resize(250, 150)
+        self.resize(1250, 550)
         self.center()
         self.setWindowTitle('Py Practice')
 
